@@ -1,0 +1,24 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+  RewriteEngine On
+	#greg specific
+	#RewriteBase /
+  # Redirect Trailing Slashes If Not A Folder...
+  #RewriteCond %{REQUEST_FILENAME} !-d
+  #RewriteRule ^(.*)/$ /$1 [L,R=301]
+  #Redirect request:
+	RewriteCond %{REQUEST_URI} !\.(css|jpe?g|png|JPE?G|PNG|js|gif|swf|ico)$
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule . index.php [L]
+  #RewriteRule ^(.*)$  index.php?req = $1 [QSA,L]
+
+
+    # Handle Authorization Header
+  #  RewriteCond %{HTTP:Authorization} .
+   # RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
