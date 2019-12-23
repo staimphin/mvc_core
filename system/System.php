@@ -15,7 +15,7 @@ Class System
             self::autoload();
             self::routing();
         } catch (Exception $e) {
-            echo 'Exception: ',  $e->getMessage(), "\n";
+            self::errors($e->getMessage());
         }
     }
     /**
@@ -29,7 +29,7 @@ Class System
         //Project folder name
         define('BASE_FOLDER',str_replace('index.php','', $_SERVER['SCRIPT_NAME']));
         define('ROOT', $_SERVER['DOCUMENT_ROOT'].BASE_FOLDER);
-        define('WEB_ROOT','/');
+        define('WEB_ROOT','/'.BASE_FOLDER);
 
         //set path
         //System ROOT path:
@@ -37,6 +37,7 @@ Class System
         define('MVC_CORE_PATH', SYSTEM_PATH.'mvc_core/');
         define('HELPERS_PATH', SYSTEM_PATH.'helpers/');
         define('LIBRARY_PATH', SYSTEM_PATH.'libraries/');
+        define('BASE_VIEW_PATH', SYSTEM_PATH.'base_view/');
         define('LOG_PATH', SYSTEM_PATH.'logs/');
         define('CLASS_PATH', LIBRARY_PATH.'class/');
 
@@ -49,6 +50,7 @@ Class System
 
         //View related
         define('VIEW_PATH',APP_PATH.'views/');
+        define('LAYOUT_PATH',APP_PATH.'layouts/');
         define('ASSETS_PATH',HTML.'assets/');
         //use layout instead?
         define('VIEW_COMMON_PATH',HTML.'common/');
@@ -70,6 +72,7 @@ Class System
         include MVC_CORE_PATH . "Controller.php";
         include MVC_CORE_PATH . "Model.php";
         include MVC_CORE_PATH . "View.php";
+        include HELPERS_PATH . "Helpers.php";
         //include configs vars
         include CONFIG_PATH . "constants.php";
         include CONFIG_PATH . "config.php";
@@ -87,6 +90,9 @@ Class System
         spl_autoload_register('systemLoader');
     }
 
+    /**
+     * Basic routing
+     */
 	public static function routing()
     {
 	    $router = new router();
@@ -95,7 +101,16 @@ Class System
         list ($controller, $action, $params) = $routing_data;
 
         $page = new $controller();
-
         $page->$action($params);
+
+    }
+
+    /**
+     *
+     */
+    public static function errors($errors)
+    {
+        $page = new ErrorController();
+        $page->index($errors);
     }
 }

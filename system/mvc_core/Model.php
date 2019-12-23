@@ -13,7 +13,6 @@ class Model extends Core
 {
 	protected $db;
 	protected $table;
-
 	protected $prepared_query;
     /**
      * Model constructor.
@@ -31,7 +30,7 @@ class Model extends Core
      * @param $options
      * @return array|null
      */
-	public function find($options)
+	public function find($options = array())
 	{
 		return $this->db->select($this->table, $options);
 	}

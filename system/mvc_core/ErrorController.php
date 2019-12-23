@@ -3,13 +3,11 @@
 
 class ErrorController extends Controller
 {
-    public function index()
+    public function index($content = 'Error 404: Not found')
     {
         $title ="Not found page";
-        $content ="this is default content for 404";
         $this->set('title', $title);
         $this->set('content', $content);
-
         $this->render('404');
     }
 }

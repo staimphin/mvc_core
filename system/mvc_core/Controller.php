@@ -35,6 +35,10 @@ class Controller extends Core{
     	$this->vars[$key] = $value;
     }
 
+    public function useLayout($layout)
+    {
+        $this->View->setLayout($layout);
+    }
     /**
      * retrieve a specific data set for the view
      * @param $key
