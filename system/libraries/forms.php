@@ -2,11 +2,48 @@
 /**
  * Class Forms
  * Framework core component
+ * WIP
  */
 class Forms {
 	protected $_selected = '<select name="_NAME_">_LIST_</select>';
 	protected $_hidden = '<input type="_hidden" name="_NAME_" value="__VALUE__"__ATTRIBUT__>'.PHP_EOL;
+	/**
+	*/
+	public function radio($name, $options)
+	{
+		$radio = '';
 
+		foreach($options['choices'] as $key => $value){
+			$selected = (isset($options['selected']) && $options['selected'] == $key) ? ' checked': '';
+			$radio .= "<label><input type='radio' name='{$name}' value='{$key}'{$selected}>{$value}</label>";
+		}
+
+		return $radio;
+	}
+	/**
+	*/
+	public function checkbox($name, $options)
+	{
+		$radio = '';
+
+		foreach($options['choices'] as $key => $value){
+			$selected = (isset($options['selected']) && $options['selected'] == $key) ? ' checked': '';
+			$radio .= "<label><input type='checkbox' name='{$name}' value='{$key}'{$selected}>{$value}</label>";
+		}
+
+		return $radio;
+	}
+/**
+	*/
+	public function inputText($name, $options = array())
+	{
+		$input = "<input type='text' name='{$name}'>";
+
+		return $input;
+	}
+	/**
+	 * WIP
+	 */
 	public function select($name, $options)
 	{
 		$list = '';
@@ -19,18 +56,6 @@ class Forms {
 		$select = str_replace('_NAME_', $name, $this->_selected);
 
 		return str_replace('_LIST_', $list, $select);
-	}
-
-	public function radio($name, $options)
-	{
-		$radio = '';
-
-		foreach($options['options_list'] as $key => $value){
-			$selected = (isset($options['selected']) && $options['selected'] == $key) ? ' checked': '';
-			$radio .= "<label><input type='radio' name='{$name}' value='{$key}'{$selected}>{$value}</label>";
-		}
-
-		return $radio;
 	}
 
 	public function convertImprovementsListToInputs($name, $string)

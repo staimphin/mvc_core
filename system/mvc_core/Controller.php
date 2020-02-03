@@ -6,6 +6,7 @@
 class Controller extends Core{
 	protected $View;
 	protected $Model;
+    protected $_data = array();
 	protected $vars = array();
 
 	public function __construct()
@@ -56,5 +57,17 @@ class Controller extends Core{
     public function getAll()
     {
     	return $this->vars;
+    }
+    /**
+     * retrieve all the data currently for the view
+     * @return array
+     */
+    public function getRequest()
+    {
+        return $this->_data;
+    }
+    public function setRequest($data)
+    {
+        $this->_data = $data;
     }
 }

@@ -51,6 +51,10 @@ class View
         return BASE_VIEW_PATH."missing_view.php";
     }
 
+    public function getTemplate($filename)
+    {
+        
+    }
     protected function checkLayout($file_name)
     {
         $path = LAYOUT_PATH."{$file_name}.php";
@@ -67,5 +71,32 @@ class View
     public function setLayout($layout = 'Default')
     {
         $this->layout = $layout;
+    }
+
+    public function makeForm($data)
+    {
+        $form = new Forms;
+        $output = '<div class="form">';
+        foreach($data as $key => $input) {
+            $input_name = (isset($input['name'])) ? $input['name'] : "name{$input['original_id']}";
+            $input_type = $input['type'];
+            $question = "<p>{$input['question']}</p>";
+            switch ($input_type) {
+                case 'radio':
+                    $form_input = $form->radio($input_name, $input);
+                    break;
+                case 'checkbox':
+                    $form_input = $form->checkbox($input_name, $input);
+                    break;
+                
+                default:
+                    $form_input = $form->inputText($input_name);
+                    break;
+            }
+
+            $output .= "<div class='{$input_type}'>{$question}{$form_input}</div>";
+        }
+         $output .= '</div>';
+        echo $output;
     }
 }

@@ -72,9 +72,9 @@ class File
         if (is_array($content)) {
             $content = implode(PHP_EOL, $content);
         }
-
-        $destfile = fopen($filename,"w+");
-        $op=fwrite( $destfile,$content);
+        $date = date("Y-m-d H:i:s:: ");
+        $destfile = fopen($filename,"a+");
+        $op=fwrite( $destfile,$date.$content);
         fclose( $destfile);
         return $op;
     }

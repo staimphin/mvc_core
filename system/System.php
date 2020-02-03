@@ -98,11 +98,11 @@ Class System
 	    $router = new router();
 
         $routing_data = $router->getRoute();
-        list ($controller, $action, $params) = $routing_data;
+        list ($controller, $action, $params, $data) = $routing_data;
 
         $page = new $controller();
+        $page->setRequest($data);
         $page->$action($params);
-
     }
 
     /**

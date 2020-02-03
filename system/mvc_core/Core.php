@@ -20,6 +20,7 @@ class Core
      */
     public function __call($name, $arguments)
     {
+         $this->log->log(get_class($arguments));
         $call_not_found = "Not found: class:".get_class($this)." Function {$name}  Args:"    . implode(', ', $arguments). "\n";
         $this->log->log($call_not_found);
 

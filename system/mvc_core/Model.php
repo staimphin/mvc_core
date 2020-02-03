@@ -177,4 +177,8 @@ class Model extends Core
 		$this->prepared_query = $prepared;
 	}
 
+	public function logQuery($debug = true)
+	{
+		$this->db->setLogQuery($debug);
+	}
 }

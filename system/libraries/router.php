@@ -31,6 +31,7 @@ Class router {
              $request_controller_name,
              $action,
              $params,
+             $_REQUEST
         );
     }
 

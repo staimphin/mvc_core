@@ -299,7 +299,7 @@ class Db
 		
 		$this->query .= " WHERE {$where}";
 		$this->data   = array_merge($data, $whereKey);
-		print_R($this->data);
+
 		return $this->_query();
 	}
 	
@@ -452,12 +452,13 @@ class Db
 	/* turn on or off the debug mode*/
 	public function setLogQuery($mode=0)
 	{
-		$this->logQuery       = intval($mode);
+		$this->Log->log("start db log");
+		$this->logQuery = intval($mode);
 	}
 	/* should log into a file instead*/
 	private function showDebugInfo()
 	{
-
+		$this->Log->log($this->_debug_data);
 	}
 	
 	public function dbVersion()
